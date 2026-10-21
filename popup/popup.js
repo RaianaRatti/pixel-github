@@ -40,12 +40,12 @@
     T.COLOR_KEYS.forEach(function (c) {
       var row = document.createElement("div");
       row.className = "color-row";
-      row.innerHTML =
-        '<input type="color" aria-label="' + c.label + '">' +
-        '<span class="color-name"><b>' + c.label + "</b><small>" + c.hint + "</small></span>" +
-        '<input type="text" spellcheck="false" maxlength="7" pattern="#[0-9a-fA-F]{6}" aria-label="' + c.label + ' hex">';
-      var picker = row.children[0];
-      var hex = row.children[2];
+      var picker = el("input", { type: "color", "aria-label": c.label });
+      var name = el("span", { class: "color-name" });
+      name.appendChild(el("b", {}, c.label));
+      name.appendChild(el("small", {}, c.hint));
+      var hex = el("input", { type: "text", spellcheck: "false", maxlength: "7", pattern: "#[0-9a-fA-F]{6}", "aria-label": c.label + " hex" });
+      row.append(picker, name, hex);
       picker.dataset.color = c.key;
       hex.dataset.hex = c.key;
       picker.addEventListener("input", function () { setColor(c.key, picker.value); });
@@ -71,6 +71,13 @@
       settings = T.withDefaults();
       save();
     });
+  }
+
+  function el(tag, attrs, text) {
+    var node = document.createElement(tag);
+    Object.keys(attrs).forEach(function (k) { node.setAttribute(k, attrs[k]); });
+    if (text) node.textContent = text;
+    return node;
   }
 
   function setColor(key, value, skipField) {

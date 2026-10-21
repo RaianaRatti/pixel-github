@@ -87,13 +87,6 @@ var PIXEL_THEME = (function () {
     return FONT_STACKS[choice === "system" ? fallback : choice] || FONT_STACKS[fallback];
   }
 
-  var FONT_FILES = [
-    { family: "PX Pixelify Sans",   file: "fonts/PixelifySans.woff2",      weight: "400 700" },
-    { family: "PX Press Start 2P",  file: "fonts/PressStart2P.woff2",      weight: "400" },
-    { family: "PX Silkscreen",      file: "fonts/Silkscreen-Regular.woff2", weight: "400" },
-    { family: "PX Silkscreen",      file: "fonts/Silkscreen-Bold.woff2",    weight: "700" },
-    { family: "PX VT323",           file: "fonts/VT323.woff2",             weight: "400" }
-  ];
 
   // Applies the settings to a root element as CSS variables + classes.
   // Used both on github.com and inside the popup (so the popup is a live preview).
@@ -182,7 +175,6 @@ var PIXEL_THEME = (function () {
     COLOR_KEYS: COLOR_KEYS,
     PRESETS: PRESETS,
     DEFAULTS: DEFAULTS,
-    FONT_FILES: FONT_FILES,
     withDefaults: withDefaults,
     apply: apply,
     STORAGE_KEY: "pixelTheme"

@@ -8,7 +8,6 @@
   // Turn on with defaults right away so there's no flash of GitHub's normal look.
   T.apply(html, current);
   forceLight(current.enabled);
-  injectFonts();
 
   chrome.storage.local.get(T.STORAGE_KEY, function (data) {
     update(data[T.STORAGE_KEY]);
@@ -99,25 +98,4 @@
     if (html.getAttribute(attr) !== value) html.setAttribute(attr, value);
   }
 
-  // Fonts are bundled with the extension because GitHub's CSP blocks Google Fonts.
-  function injectFonts() {
-    try {
-      T.FONT_FILES.forEach(function (f) {
-        var face = new FontFace(f.family, "url('" + chrome.runtime.getURL(f.file) + "') format('woff2')", { weight: f.weight, display: "swap" });
-        document.fonts.add(face);
-        face.load().catch(function () {});
-      });
-      return;
-    } catch (e) {
-      // Fall back to a <style> tag below.
-    }
-    var css = T.FONT_FILES.map(function (f) {
-      return "@font-face{font-family:'" + f.family + "';src:url('" + chrome.runtime.getURL(f.file) +
-        "') format('woff2');font-weight:" + f.weight + ";font-display:swap;}";
-    }).join("\n");
-    var style = document.createElement("style");
-    style.id = "px-fonts";
-    style.textContent = css;
-    (document.head || html).appendChild(style);
-  }
 })();

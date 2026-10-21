@@ -11,10 +11,28 @@ arcade fonts, a pink contribution graph, 8-bit avatars and a pixel cursor. Every
 3. Click **Load unpacked** and pick this folder
 4. Pin the pixel heart in the toolbar
 
-**Firefox** (128+)
-1. Open `about:debugging#/runtime/this-firefox`
-2. **Load Temporary Add-on…** → pick `manifest.json`
-   (temporary add-ons are removed when Firefox restarts)
+**Firefox** (140+)
+
+Build the `.xpi` (output goes to `dist/`):
+
+```sh
+npx web-ext build --ignore-files dist README.md --overwrite-dest -a dist -n pixel-pink-{version}.xpi
+```
+
+Regular Firefox only keeps add-ons that Mozilla has signed. Pick one of these:
+
+- **Sign it (permanent, regular Firefox).** Get free API keys at
+  https://addons.mozilla.org/developers/addon/api/key/ and run
+  ```sh
+  npx web-ext sign --channel=unlisted --api-key=YOUR_KEY --api-secret=YOUR_SECRET
+  ```
+  "Unlisted" means Mozilla signs it but it is **not** published on the add-ons store. The signed `.xpi` lands in
+  `web-ext-artifacts/`. Drag it onto a Firefox window to install.
+- **Firefox Developer Edition / Nightly (permanent, no signing).** Set `xpinstall.signatures.required` to `false`
+  in `about:config`, then drag `dist/pixel-pink-1.0.0.xpi` onto the window.
+- **Quick try (until restart).** `about:debugging#/runtime/this-firefox` → **Load Temporary Add-on…** → pick the `.xpi`.
+
+Bump `version` in `manifest.json` before signing again, because Mozilla won't sign the same version twice.
 
 ## Customize
 

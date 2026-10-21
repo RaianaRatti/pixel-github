@@ -1,0 +1,36 @@
+/* Bundled pixel fonts. Chrome and Firefox each pick the URL with their own scheme; the other one just fails over. */
+@font-face {
+  font-family: 'PX Pixelify Sans';
+  src: url('chrome-extension://__MSG_@@extension_id__/fonts/PixelifySans.woff2') format('woff2'),
+       url('moz-extension://__MSG_@@extension_id__/fonts/PixelifySans.woff2') format('woff2');
+  font-weight: 400 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PX Press Start 2P';
+  src: url('chrome-extension://__MSG_@@extension_id__/fonts/PressStart2P.woff2') format('woff2'),
+       url('moz-extension://__MSG_@@extension_id__/fonts/PressStart2P.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PX Silkscreen';
+  src: url('chrome-extension://__MSG_@@extension_id__/fonts/Silkscreen-Regular.woff2') format('woff2'),
+       url('moz-extension://__MSG_@@extension_id__/fonts/Silkscreen-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PX Silkscreen';
+  src: url('chrome-extension://__MSG_@@extension_id__/fonts/Silkscreen-Bold.woff2') format('woff2'),
+       url('moz-extension://__MSG_@@extension_id__/fonts/Silkscreen-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PX VT323';
+  src: url('chrome-extension://__MSG_@@extension_id__/fonts/VT323.woff2') format('woff2'),
+       url('moz-extension://__MSG_@@extension_id__/fonts/VT323.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
