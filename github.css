@@ -31,7 +31,7 @@ html.px-on {
   --px-muted: color-mix(in srgb, var(--px-text) 64%, var(--px-bg));
   --px-line: color-mix(in srgb, var(--px-border) 30%, var(--px-bg));
   --px-line-soft: color-mix(in srgb, var(--px-border) 16%, var(--px-bg));
-  --px-on-accent: #ffffff;
+  --px-on-accent: #ffffff; /* overridden by the extension: dark text on light accents like yellow */
   --px-hard: 4px 4px 0 0 var(--px-shadow);
   --px-hard-sm: 2px 2px 0 0 var(--px-border);
 }
@@ -227,7 +227,7 @@ html.px-on:not(.px-fx-square-avatars) [class*="prc-Avatar"] {
   border-radius: 50% !important;
 }
 
-/* Faint pixel grid behind the page, like graph paper in a level editor */
+/* Optional faint pixel grid behind the page (Power-ups → Grid background) */
 html.px-on.px-fx-grid body {
   background-image:
     linear-gradient(color-mix(in srgb, var(--px-accent) 7%, transparent) 2px, transparent 2px),
@@ -486,12 +486,17 @@ html.px-on .markdown-body table th {
 }
 
 /* ---------- 9. Little bits: counters, labels, topics, keyboard keys ---------- */
+/* Counters use a system font: pixel fonts make small digits hard to read (3 looks like S) */
 html.px-on .Counter,
 html.px-on [class*="prc-CounterLabel"] {
   background-color: var(--px-accent-soft) !important;
-  color: var(--px-accent-ink) !important;
+  color: var(--px-text) !important;
   border: 1px solid var(--px-accent) !important;
-  font-weight: 700;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0 !important;
 }
 html.px-on .topic-tag,
 html.px-on a.topic-tag {
@@ -555,10 +560,6 @@ html.px-on .avatar-user {
 }
 html.px-on.px-fx-shadows img.avatar-user.width-full {
   box-shadow: 0 0 0 3px var(--px-border), 6px 6px 0 3px var(--px-shadow) !important;
-}
-html.px-on img[data-px-avatar] {
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
 }
 
 /* ---------- 12. Pixel cursor ---------- */

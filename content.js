@@ -22,57 +22,9 @@
     if (current.enabled) forceLight(true);
   }).observe(html, { attributes: true, attributeFilter: ["data-color-mode", "data-light-theme", "data-dark-theme"] });
 
-  // 8-bit avatars: ask GitHub's avatar server for a tiny image and let CSS scale it up pixelated.
-  var avatarObserver = new MutationObserver(function (mutations) {
-    if (!pixelAvatarsOn()) return;
-    mutations.forEach(function (m) {
-      if (m.type === "attributes") pixelate(m.target);
-      else m.addedNodes.forEach(function (n) { if (n.nodeType === 1) scanAvatars(n); });
-    });
-  });
-  avatarObserver.observe(html, { childList: true, subtree: true, attributes: true, attributeFilter: ["src"] });
-
   function update(saved) {
     current = T.apply(html, saved);
     forceLight(current.enabled);
-    if (pixelAvatarsOn()) scanAvatars(document);
-    else restoreAvatars();
-  }
-
-  function pixelAvatarsOn() {
-    return current.enabled && current.effects.pixelAvatars;
-  }
-
-  function scanAvatars(root) {
-    if (root.tagName === "IMG") pixelate(root);
-    if (root.querySelectorAll) root.querySelectorAll('img[src*="avatars.githubusercontent.com"]').forEach(pixelate);
-  }
-
-  function pixelate(img) {
-    if (img.tagName !== "IMG" || !/avatars\.githubusercontent\.com/.test(img.src)) return;
-    var displayed = parseInt(img.getAttribute("width"), 10) || img.getBoundingClientRect().width || 40;
-    var tiny = Math.max(10, Math.min(48, Math.round(displayed / 4)));
-    var url;
-    try { url = new URL(img.src); } catch (e) { return; }
-    if (img.dataset.pxAvatar && url.searchParams.get("s") === String(tiny)) return; // already done
-    if (!img.dataset.pxAvatar) {
-      img.dataset.pxOrigSrc = img.src;
-      if (img.hasAttribute("srcset")) img.dataset.pxOrigSrcset = img.getAttribute("srcset");
-    }
-    img.dataset.pxAvatar = "1";
-    img.removeAttribute("srcset");
-    url.searchParams.set("s", tiny);
-    img.src = url.toString();
-  }
-
-  function restoreAvatars() {
-    document.querySelectorAll("img[data-px-avatar]").forEach(function (img) {
-      if (img.dataset.pxOrigSrcset) img.setAttribute("srcset", img.dataset.pxOrigSrcset);
-      if (img.dataset.pxOrigSrc) img.src = img.dataset.pxOrigSrc;
-      delete img.dataset.pxAvatar;
-      delete img.dataset.pxOrigSrc;
-      delete img.dataset.pxOrigSrcset;
-    });
   }
 
   function forceLight(on) {

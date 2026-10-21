@@ -1,7 +1,7 @@
 # Pixel Pink for GitHub
 
 A pixelated, video-game light theme for github.com: white and pink, square corners, chunky hard shadows,
-arcade fonts, a pink contribution graph, 8-bit avatars and a pixel cursor. Every color can be changed from the popup.
+arcade fonts, a pink contribution graph and a pixel cursor. Every color can be changed from the popup.
 
 ## Install
 
@@ -9,7 +9,7 @@ arcade fonts, a pink contribution graph, 8-bit avatars and a pixel cursor. Every
 1. Open `chrome://extensions`
 2. Turn on **Developer mode** (top right)
 3. Click **Load unpacked** and pick this folder
-4. Pin the pixel heart in the toolbar
+4. Pin the pixel Octocat icon in the toolbar
 
 **Firefox** (140+)
 
@@ -29,20 +29,20 @@ Regular Firefox only keeps add-ons that Mozilla has signed. Pick one of these:
   "Unlisted" means Mozilla signs it but it is **not** published on the add-ons store. The signed `.xpi` lands in
   `web-ext-artifacts/`. Drag it onto a Firefox window to install.
 - **Firefox Developer Edition / Nightly (permanent, no signing).** Set `xpinstall.signatures.required` to `false`
-  in `about:config`, then drag `dist/pixel-pink-1.0.0.xpi` onto the window.
+  in `about:config`, then drag `dist/pixel-pink-{version}.xpi` onto the window.
 - **Quick try (until restart).** `about:debugging#/runtime/this-firefox` → **Load Temporary Add-on…** → pick the `.xpi`.
 
 Bump `version` in `manifest.json` before signing again, because Mozilla won't sign the same version twice.
 
 ## Customize
 
-Click the heart icon:
+Click the pixel Octocat icon:
 
-- **Pick a palette**: Bubblegum, Sakura, Strawberry Milk, Cotton Candy, Lavender, Peach Soda, Handheld
+- **Pick a palette**: Bubblegum, Sakura, Cherry, Peach Soda, Lemon Drop, Handheld, Mint Chip, Sky Castle, Blueberry, Lavender, Cotton Candy, Arcade Mono
 - **Colors**: 7 colors (background, surface, text, accent, accent 2, border, shadow). Use the picker or type a hex.
   Every other shade (hover, soft tints, graph levels, syntax colors) is mixed from these.
 - **Fonts**: Pixelify Sans / Silkscreen / Press Start 2P / VT323, or GitHub's normal fonts
-- **Power-ups**: 8-bit avatars, pixel cursor, chunky shadows, grid background, square avatars, CRT scanlines
+- **Power-ups**: pixel cursor, chunky shadows, grid background, square avatars, CRT scanlines
 - **ON/OFF** switch top right turns everything off instantly
 
 Changes show up live on any open GitHub tab.
@@ -53,7 +53,7 @@ Changes show up live on any open GitHub tab.
 | --- | --- |
 | `github.css` | The theme. Points GitHub's own color tokens at `--px-*` variables, then adds the pixel styling |
 | `theme-data.js` | Presets, defaults, and the code that writes your settings onto the page as CSS variables |
-| `content.js` | Runs on GitHub: loads fonts, forces light mode, live-updates, pixelates avatars |
+| `content.js` | Runs on GitHub: loads fonts, forces light mode, live-updates |
 | `popup/` | The settings panel |
 | `fonts/` | Bundled pixel fonts (GitHub's security policy blocks Google Fonts) |
 

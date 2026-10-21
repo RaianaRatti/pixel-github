@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Pixel Pink for GitHub",
   "short_name": "Pixel Pink",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A pixelated, video-game light theme for GitHub. Pick your own colors.",
   "icons": {
     "16": "icons/icon16.png",

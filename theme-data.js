@@ -12,6 +12,7 @@ var PIXEL_THEME = (function () {
     { key: "shadow",  label: "Shadow",      hint: "hard drop shadows" }
   ];
 
+  // 12 palettes around the color wheel: 2 pink, red, orange, yellow, green, mint, blue, indigo, purple, pink+blue, grayscale.
   var PRESETS = {
     bubblegum: {
       name: "Bubblegum",
@@ -21,25 +22,45 @@ var PIXEL_THEME = (function () {
       name: "Sakura",
       colors: { bg: "#fffafb", surface: "#fdeef2", text: "#4a2a35", accent: "#e8608a", accent2: "#f7b6c8", border: "#7a3b52", shadow: "#f3c9d6" }
     },
-    strawberry: {
-      name: "Strawberry Milk",
-      colors: { bg: "#fffdfd", surface: "#ffeef0", text: "#5b2a2f", accent: "#ff5c77", accent2: "#ffb3c1", border: "#5b2a2f", shadow: "#ffd1d9" }
-    },
-    cottoncandy: {
-      name: "Cotton Candy",
-      colors: { bg: "#ffffff", surface: "#f4f7ff", text: "#2b2445", accent: "#ff6fb5", accent2: "#7cc4ff", border: "#2b2445", shadow: "#c9e4ff" }
-    },
-    lavender: {
-      name: "Lavender",
-      colors: { bg: "#fdfbff", surface: "#f5effe", text: "#33274a", accent: "#b061ff", accent2: "#ff8fd1", border: "#33274a", shadow: "#e2d1fb" }
+    cherry: {
+      name: "Cherry",
+      colors: { bg: "#fffcfc", surface: "#ffeeee", text: "#4a1c22", accent: "#e5364f", accent2: "#ff9aa6", border: "#4a1c22", shadow: "#ffcdd3" }
     },
     peach: {
       name: "Peach Soda",
       colors: { bg: "#fffcf8", surface: "#fff1e8", text: "#4a2c1f", accent: "#ff7a59", accent2: "#ffc46b", border: "#4a2c1f", shadow: "#ffd9c4" }
     },
+    lemon: {
+      name: "Lemon Drop",
+      colors: { bg: "#fffef6", surface: "#fff8d6", text: "#3d3410", accent: "#f5b700", accent2: "#ffe066", border: "#3d3410", shadow: "#ffeaa3" }
+    },
     gameboy: {
       name: "Handheld",
       colors: { bg: "#f2f7e4", surface: "#e3edc6", text: "#1f3316", accent: "#4f8a2b", accent2: "#9bbc0f", border: "#0f380f", shadow: "#c4d89a" }
+    },
+    mint: {
+      name: "Mint Chip",
+      colors: { bg: "#f8fffc", surface: "#e6f8f0", text: "#1c3a32", accent: "#16a383", accent2: "#8ee6c9", border: "#1c3a32", shadow: "#bdeedd" }
+    },
+    sky: {
+      name: "Sky Castle",
+      colors: { bg: "#fafdff", surface: "#eaf5ff", text: "#1d2f4a", accent: "#3a8dff", accent2: "#8cc8ff", border: "#1d2f4a", shadow: "#c6e1ff" }
+    },
+    blueberry: {
+      name: "Blueberry",
+      colors: { bg: "#fbfbff", surface: "#eef0ff", text: "#25234d", accent: "#5b5bd6", accent2: "#a5a8ff", border: "#25234d", shadow: "#d3d5ff" }
+    },
+    lavender: {
+      name: "Lavender",
+      colors: { bg: "#fdfbff", surface: "#f5effe", text: "#33274a", accent: "#b061ff", accent2: "#ff8fd1", border: "#33274a", shadow: "#e2d1fb" }
+    },
+    cottoncandy: {
+      name: "Cotton Candy",
+      colors: { bg: "#ffffff", surface: "#f4f7ff", text: "#2b2445", accent: "#ff6fb5", accent2: "#7cc4ff", border: "#2b2445", shadow: "#c9e4ff" }
+    },
+    mono: {
+      name: "Arcade Mono",
+      colors: { bg: "#ffffff", surface: "#f3f3f3", text: "#1f1f1f", accent: "#3d3d3d", accent2: "#b8b8b8", border: "#1f1f1f", shadow: "#d9d9d9" }
     }
   };
 
@@ -52,11 +73,10 @@ var PIXEL_THEME = (function () {
     codeFont: "vt323",         // vt323 | system
     effects: {
       cursor: true,   // pixel arrow cursor
-      grid: true,     // faint pixel grid behind the page
       shadows: true,  // chunky hard shadows on boxes and buttons
+      grid: false,    // faint pixel grid behind the page
       scanlines: false,
-      squareAvatars: true,
-      pixelAvatars: true // re-request avatars at tiny sizes and blow them up = 8-bit portraits
+      squareAvatars: true
     }
   };
 
@@ -95,6 +115,7 @@ var PIXEL_THEME = (function () {
     Object.keys(s.colors).forEach(function (k) {
       root.style.setProperty("--px-" + k, s.colors[k]);
     });
+    root.style.setProperty("--px-on-accent", luminance(s.colors.accent) > 0.45 ? s.colors.text : "#ffffff");
     root.style.setProperty("--px-font-body", stack(s.bodyFont, "systemSans"));
     root.style.setProperty("--px-font-heading", stack(s.headingFont, "systemSans"));
     root.style.setProperty("--px-font-code", stack(s.codeFont, "systemMono"));
@@ -106,11 +127,10 @@ var PIXEL_THEME = (function () {
     toggle(root, "px-code-font", s.codeFont !== "system");
     toggle(root, "px-code-vt", s.codeFont === "vt323");
     toggle(root, "px-fx-cursor", s.effects.cursor);
-    toggle(root, "px-fx-grid", s.effects.grid);
     toggle(root, "px-fx-shadows", s.effects.shadows);
+    toggle(root, "px-fx-grid", s.effects.grid);
     toggle(root, "px-fx-scanlines", s.effects.scanlines);
     toggle(root, "px-fx-square-avatars", s.effects.squareAvatars);
-    toggle(root, "px-fx-pixel-avatars", s.effects.pixelAvatars);
     return s;
   }
 
@@ -165,6 +185,16 @@ var PIXEL_THEME = (function () {
     var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + w * px + "' height='" + bitmap.length * px +
       "' shape-rendering='crispEdges'>" + rects + "</svg>";
     return 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '") ' + hotX + " " + hotY + ", " + fallback;
+  }
+
+  // Relative luminance (0 = black, 1 = white) of a #rrggbb color.
+  function luminance(hex) {
+    var n = parseInt(String(hex).slice(1), 16);
+    var ch = [n >> 16 & 255, n >> 8 & 255, n & 255].map(function (v) {
+      v /= 255;
+      return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * ch[0] + 0.7152 * ch[1] + 0.0722 * ch[2];
   }
 
   function toggle(root, cls, on) {

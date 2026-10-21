@@ -19,7 +19,6 @@
   --accent-soft: color-mix(in srgb, var(--px-accent) 16%, var(--px-bg));
   --accent-softer: color-mix(in srgb, var(--px-accent) 8%, var(--px-bg));
   --muted: color-mix(in srgb, var(--px-text) 64%, var(--px-bg));
-  --grid: color-mix(in srgb, var(--px-accent) 8%, transparent);
   color-scheme: light;
 }
 
@@ -29,13 +28,16 @@ body {
   width: 360px;
   margin: 0;
   background-color: var(--px-bg);
-  background-image:
-    linear-gradient(var(--grid) 2px, transparent 2px),
-    linear-gradient(90deg, var(--grid) 2px, transparent 2px);
-  background-size: 20px 20px;
   color: var(--px-text);
   font: 15px/1.3 var(--px-font-body);
   -webkit-font-smoothing: none;
+}
+
+html.px-fx-grid body {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--px-accent) 8%, transparent) 2px, transparent 2px),
+    linear-gradient(90deg, color-mix(in srgb, var(--px-accent) 8%, transparent) 2px, transparent 2px);
+  background-size: 20px 20px;
 }
 
 /* ---------- HUD header ---------- */
@@ -57,21 +59,11 @@ body {
   text-shadow: 2px 2px 0 var(--px-accent2);
 }
 
-/* An 8x7 pixel heart drawn with box-shadows, in the accent color */
-.heart {
-  width: 4px;
-  height: 4px;
-  margin: 0 30px 26px 0;
-  background: transparent;
-  color: var(--px-accent);
-  box-shadow:
-    4px 0, 8px 0, 20px 0, 24px 0,
-    0 4px, 4px 4px, 8px 4px, 12px 4px, 16px 4px, 20px 4px, 24px 4px, 28px 4px,
-    0 8px, 4px 8px, 8px 8px, 12px 8px, 16px 8px, 20px 8px, 24px 8px, 28px 8px,
-    4px 12px, 8px 12px, 12px 12px, 16px 12px, 20px 12px, 24px 12px,
-    8px 16px, 12px 16px, 16px 16px, 20px 16px,
-    12px 20px, 16px 20px;
-  transform: translateY(2px);
+/* The extension's pixel mosaic icon */
+.mark {
+  display: block;
+  image-rendering: pixelated;
+  filter: drop-shadow(2px 2px 0 var(--px-accent2));
 }
 
 /* On/off switch */
