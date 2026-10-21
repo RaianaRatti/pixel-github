@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Pixel Pink</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="hud">
+    <div class="logo">
+      <span class="heart" aria-hidden="true"></span>
+      <h1>PIXEL<br>PINK</h1>
+    </div>
+    <label class="power" title="Turn the theme on or off">
+      <input type="checkbox" id="enabled">
+      <span class="power-track"><span class="power-knob"></span></span>
+      <span class="power-label" id="enabled-label">ON</span>
+    </label>
+  </header>
+
+  <main id="controls">
+    <section>
+      <h2>&#9656; Pick a palette</h2>
+      <div class="presets" id="presets"></div>
+    </section>
+
+    <section>
+      <h2>&#9656; Colors</h2>
+      <div class="colors" id="colors"></div>
+    </section>
+
+    <section>
+      <h2>&#9656; Fonts</h2>
+      <div class="fonts">
+        <label>Text
+          <select id="bodyFont">
+            <option value="pixelify">Pixelify Sans</option>
+            <option value="silkscreen">Silkscreen</option>
+            <option value="system">Normal (GitHub)</option>
+          </select>
+        </label>
+        <label>Headings
+          <select id="headingFont">
+            <option value="pressstart">Press Start 2P</option>
+            <option value="silkscreen">Silkscreen</option>
+            <option value="pixelify">Pixelify Sans</option>
+            <option value="system">Normal (GitHub)</option>
+          </select>
+        </label>
+        <label>Code
+          <select id="codeFont">
+            <option value="vt323">VT323</option>
+            <option value="system">Normal (GitHub)</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section>
+      <h2>&#9656; Power-ups</h2>
+      <div class="effects">
+        <label class="check"><input type="checkbox" data-effect="pixelAvatars"><span class="box"></span>8-bit avatars</label>
+        <label class="check"><input type="checkbox" data-effect="cursor"><span class="box"></span>Pixel cursor</label>
+        <label class="check"><input type="checkbox" data-effect="shadows"><span class="box"></span>Chunky shadows</label>
+        <label class="check"><input type="checkbox" data-effect="grid"><span class="box"></span>Grid background</label>
+        <label class="check"><input type="checkbox" data-effect="squareAvatars"><span class="box"></span>Square avatars</label>
+        <label class="check"><input type="checkbox" data-effect="scanlines"><span class="box"></span>CRT scanlines</label>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <button type="button" class="btn" id="reset">&#8634; Reset</button>
+    <span class="saved" id="saved" aria-live="polite"></span>
+  </footer>
+
+  <script src="../theme-data.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,602 @@
+/* ==========================================================================
+   Pixel Pink — a pixelated, video-game light theme for GitHub.
+   Everything hangs off a handful of --px-* variables that the popup controls.
+   All rules are scoped to html.px-on so turning the theme off is instant.
+   ========================================================================== */
+
+/* ---------- 1. Palette (defaults; the extension overrides them inline) ---------- */
+:root {
+  --px-bg: #ffffff;
+  --px-surface: #fff4f9;
+  --px-text: #3b1f33;
+  --px-accent: #ff4fa3;
+  --px-accent2: #ff9ccf;
+  --px-border: #2e1a2b;
+  --px-shadow: #ffc2df;
+  --px-font-body: 'PX Pixelify Sans', monospace;
+  --px-font-heading: 'PX Press Start 2P', monospace;
+  --px-font-code: 'PX VT323', monospace;
+}
+
+html.px-on {
+  color-scheme: light !important;
+
+  /* Shades derived from the palette, so 7 colors are all you ever have to pick. */
+  --px-accent-ink: color-mix(in srgb, var(--px-accent) 72%, var(--px-text));
+  --px-accent-hover: color-mix(in srgb, var(--px-accent) 86%, var(--px-text));
+  --px-accent-soft: color-mix(in srgb, var(--px-accent) 16%, var(--px-bg));
+  --px-accent-softer: color-mix(in srgb, var(--px-accent) 8%, var(--px-bg));
+  --px-accent2-ink: color-mix(in srgb, var(--px-accent2) 50%, var(--px-text));
+  --px-accent2-soft: color-mix(in srgb, var(--px-accent2) 30%, var(--px-bg));
+  --px-muted: color-mix(in srgb, var(--px-text) 64%, var(--px-bg));
+  --px-line: color-mix(in srgb, var(--px-border) 30%, var(--px-bg));
+  --px-line-soft: color-mix(in srgb, var(--px-border) 16%, var(--px-bg));
+  --px-on-accent: #ffffff;
+  --px-hard: 4px 4px 0 0 var(--px-shadow);
+  --px-hard-sm: 2px 2px 0 0 var(--px-border);
+}
+
+/* ---------- 2. Re-point GitHub's own design tokens at the palette ---------- */
+html.px-on,
+html.px-on [data-color-mode],
+html.px-on [data-light-theme],
+html.px-on [data-dark-theme] {
+  /* Canvas */
+  --bgColor-default: var(--px-bg) !important;
+  --bgColor-muted: var(--px-surface) !important;
+  --bgColor-inset: var(--px-surface) !important;
+  --bgColor-emphasis: var(--px-text) !important;
+  --bgColor-inverse: var(--px-text) !important;
+  --bgColor-neutral-muted: color-mix(in srgb, var(--px-accent) 12%, var(--px-bg)) !important;
+  --bgColor-accent-muted: var(--px-accent-soft) !important;
+  --bgColor-accent-emphasis: var(--px-accent) !important;
+  --bgColor-transparent: transparent !important;
+
+  /* Text */
+  --fgColor-default: var(--px-text) !important;
+  --fgColor-muted: var(--px-muted) !important;
+  --fgColor-accent: var(--px-accent-ink) !important;
+  --fgColor-link: var(--px-accent-ink) !important;
+  --fgColor-onEmphasis: var(--px-on-accent) !important;
+
+  /* Borders */
+  --borderColor-default: var(--px-line) !important;
+  --borderColor-muted: var(--px-line-soft) !important;
+  --borderColor-accent-emphasis: var(--px-accent) !important;
+  --borderColor-accent-muted: color-mix(in srgb, var(--px-accent) 40%, var(--px-bg)) !important;
+  --underlineNav-borderColor-active: var(--px-accent) !important;
+  --underlineNav-borderColor-hover: var(--px-accent2) !important;
+  --focus-outlineColor: var(--px-accent) !important;
+
+  /* Header */
+  --header-bgColor: var(--px-surface) !important;
+  --header-fgColor-default: var(--px-text) !important;
+  --header-fgColor-logo: var(--px-accent) !important;
+  --header-borderColor-divider: var(--px-line) !important;
+
+  /* Overlays & menus */
+  --overlay-bgColor: var(--px-bg) !important;
+  --overlay-borderColor: var(--px-border) !important;
+
+  /* Controls */
+  --control-bgColor-rest: var(--px-bg) !important;
+  --control-bgColor-hover: var(--px-accent-softer) !important;
+  --control-bgColor-active: var(--px-accent-soft) !important;
+  --control-borderColor-rest: var(--px-line) !important;
+  --control-transparent-bgColor-hover: var(--px-accent-softer) !important;
+  --control-transparent-bgColor-active: var(--px-accent-soft) !important;
+  --control-transparent-bgColor-selected: var(--px-accent-soft) !important;
+  --control-checked-bgColor-rest: var(--px-accent) !important;
+  --control-checked-bgColor-hover: var(--px-accent-hover) !important;
+  --control-checked-borderColor-rest: var(--px-accent) !important;
+
+  /* Buttons */
+  --button-default-bgColor-rest: var(--px-bg) !important;
+  --button-default-bgColor-hover: var(--px-accent-softer) !important;
+  --button-default-bgColor-active: var(--px-accent-soft) !important;
+  --button-default-borderColor-rest: var(--px-border) !important;
+  --button-default-borderColor-hover: var(--px-border) !important;
+  --button-default-fgColor-rest: var(--px-text) !important;
+  --button-primary-bgColor-rest: var(--px-accent) !important;
+  --button-primary-bgColor-hover: var(--px-accent-hover) !important;
+  --button-primary-bgColor-active: var(--px-accent-ink) !important;
+  --button-primary-fgColor-rest: var(--px-on-accent) !important;
+  --button-primary-borderColor-rest: var(--px-border) !important;
+  --button-primary-borderColor-hover: var(--px-border) !important;
+  --button-primary-iconColor-rest: var(--px-on-accent) !important;
+
+  /* Contribution graph */
+  --contribution-default-bgColor-0: color-mix(in srgb, var(--px-accent) 7%, var(--px-bg)) !important;
+  --contribution-default-bgColor-1: var(--px-accent2-soft) !important;
+  --contribution-default-bgColor-2: var(--px-accent2) !important;
+  --contribution-default-bgColor-3: var(--px-accent) !important;
+  --contribution-default-bgColor-4: var(--px-accent-ink) !important;
+  --contribution-default-borderColor-0: color-mix(in srgb, var(--px-border) 14%, transparent) !important;
+  --contribution-default-borderColor-1: color-mix(in srgb, var(--px-border) 14%, transparent) !important;
+  --contribution-default-borderColor-2: color-mix(in srgb, var(--px-border) 14%, transparent) !important;
+  --contribution-default-borderColor-3: color-mix(in srgb, var(--px-border) 14%, transparent) !important;
+  --contribution-default-borderColor-4: color-mix(in srgb, var(--px-border) 14%, transparent) !important;
+
+  /* Selection */
+  --selection-bgColor: var(--px-accent2-soft) !important;
+
+  /* Square everything */
+  --borderRadius-small: 0 !important;
+  --borderRadius-medium: 0 !important;
+  --borderRadius-default: 0 !important;
+  --borderRadius-large: 0 !important;
+  --borderRadius-full: 0 !important;
+  --borderWidth-thick: 2px !important;
+
+  /* Fonts (GitHub reads these everywhere) */
+  --fontStack-monospace: var(--px-font-code), ui-monospace, SFMono-Regular, Menlo, monospace !important;
+
+  /* Syntax highlighting */
+  --color-prettylights-syntax-comment: var(--px-muted) !important;
+  --color-prettylights-syntax-constant: var(--px-accent-ink) !important;
+  --color-prettylights-syntax-entity: color-mix(in srgb, var(--px-accent) 55%, var(--px-text)) !important;
+  --color-prettylights-syntax-entity-tag: var(--px-accent2-ink) !important;
+  --color-prettylights-syntax-keyword: var(--px-accent) !important;
+  --color-prettylights-syntax-storage-modifier-import: var(--px-text) !important;
+  --color-prettylights-syntax-string: var(--px-accent2-ink) !important;
+  --color-prettylights-syntax-string-regexp: var(--px-accent2-ink) !important;
+  --color-prettylights-syntax-variable: var(--px-accent-ink) !important;
+  --color-prettylights-syntax-markup-heading: var(--px-accent-ink) !important;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: var(--px-line) !important;
+  --codeMirror-syntax-fgColor-comment: var(--px-muted) !important;
+  --codeMirror-syntax-fgColor-constant: var(--px-accent-ink) !important;
+  --codeMirror-syntax-fgColor-entity: color-mix(in srgb, var(--px-accent) 55%, var(--px-text)) !important;
+  --codeMirror-syntax-fgColor-keyword: var(--px-accent) !important;
+  --codeMirror-syntax-fgColor-string: var(--px-accent2-ink) !important;
+  --codeMirror-syntax-fgColor-variable: var(--px-accent-ink) !important;
+
+  /* Legacy token names still used on older pages (gists, settings, etc.) */
+  --color-canvas-default: var(--px-bg) !important;
+  --color-canvas-subtle: var(--px-surface) !important;
+  --color-canvas-inset: var(--px-surface) !important;
+  --color-canvas-overlay: var(--px-bg) !important;
+  --color-fg-default: var(--px-text) !important;
+  --color-fg-muted: var(--px-muted) !important;
+  --color-fg-subtle: var(--px-muted) !important;
+  --color-accent-fg: var(--px-accent-ink) !important;
+  --color-accent-emphasis: var(--px-accent) !important;
+  --color-accent-muted: color-mix(in srgb, var(--px-accent) 40%, var(--px-bg)) !important;
+  --color-accent-subtle: var(--px-accent-soft) !important;
+  --color-border-default: var(--px-line) !important;
+  --color-border-muted: var(--px-line-soft) !important;
+  --color-btn-bg: var(--px-bg) !important;
+  --color-btn-hover-bg: var(--px-accent-softer) !important;
+  --color-btn-border: var(--px-border) !important;
+  --color-btn-primary-bg: var(--px-accent) !important;
+  --color-btn-primary-hover-bg: var(--px-accent-hover) !important;
+  --color-btn-primary-text: var(--px-on-accent) !important;
+  --color-header-bg: var(--px-surface) !important;
+  --color-header-text: var(--px-text) !important;
+  --color-header-logo: var(--px-accent) !important;
+  --color-primer-border-active: var(--px-accent) !important;
+  --color-calendar-graph-day-bg: color-mix(in srgb, var(--px-accent) 7%, var(--px-bg)) !important;
+  --color-calendar-graph-day-L1-bg: var(--px-accent2-soft) !important;
+  --color-calendar-graph-day-L2-bg: var(--px-accent2) !important;
+  --color-calendar-graph-day-L3-bg: var(--px-accent) !important;
+  --color-calendar-graph-day-L4-bg: var(--px-accent-ink) !important;
+}
+
+/* Floating things get hard pixel shadows instead of soft blurry ones */
+html.px-on.px-fx-shadows,
+html.px-on.px-fx-shadows [data-color-mode] {
+  --shadow-resting-xsmall: none !important;
+  --shadow-resting-small: none !important;
+  --shadow-resting-medium: var(--px-hard) !important;
+  --shadow-floating-small: 0 0 0 2px var(--px-border), 5px 5px 0 2px var(--px-shadow) !important;
+  --shadow-floating-medium: 0 0 0 2px var(--px-border), 5px 5px 0 2px var(--px-shadow) !important;
+  --shadow-floating-large: 0 0 0 2px var(--px-border), 6px 6px 0 2px var(--px-shadow) !important;
+  --shadow-floating-xlarge: 0 0 0 2px var(--px-border), 8px 8px 0 2px var(--px-shadow) !important;
+  --color-shadow-small: none !important;
+  --color-shadow-medium: var(--px-hard) !important;
+  --color-shadow-large: var(--px-hard) !important;
+  --button-default-shadow-resting: var(--px-hard-sm) !important;
+  --button-primary-shadow-selected: none !important;
+}
+
+/* ---------- 3. Base page ---------- */
+html.px-on body {
+  background-color: var(--px-bg) !important;
+  color: var(--px-text);
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+html.px-on ::selection {
+  background: var(--px-accent2-soft) !important;
+  color: var(--px-text) !important;
+}
+
+/* Square corners everywhere — it's pixels all the way down */
+html.px-on *,
+html.px-on *::before,
+html.px-on *::after {
+  border-radius: 0 !important;
+}
+
+/* …unless you'd rather keep round avatars */
+html.px-on:not(.px-fx-square-avatars) .avatar-user,
+html.px-on:not(.px-fx-square-avatars) img.avatar-user,
+html.px-on:not(.px-fx-square-avatars) .avatar-user img,
+html.px-on:not(.px-fx-square-avatars) [data-component="Avatar"],
+html.px-on:not(.px-fx-square-avatars) [class*="prc-Avatar"] {
+  border-radius: 50% !important;
+}
+
+/* Faint pixel grid behind the page, like graph paper in a level editor */
+html.px-on.px-fx-grid body {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--px-accent) 7%, transparent) 2px, transparent 2px),
+    linear-gradient(90deg, color-mix(in srgb, var(--px-accent) 7%, transparent) 2px, transparent 2px) !important;
+  background-size: 24px 24px !important;
+  background-attachment: fixed !important;
+}
+html.px-on.px-fx-grid .application-main,
+html.px-on.px-fx-grid main,
+html.px-on.px-fx-grid .footer {
+  background-color: transparent !important;
+}
+
+/* CRT scanlines overlay */
+html.px-on.px-fx-scanlines body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2147483647;
+  background: repeating-linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--px-border) 6%, transparent) 0 1px,
+    transparent 1px 3px
+  );
+}
+
+/* ---------- 4. Fonts ---------- */
+html.px-on.px-body-font,
+html.px-on.px-body-font [data-color-mode] {
+  --fontStack-system: var(--px-font-body) !important;
+  --fontStack-sansSerif: var(--px-font-body) !important;
+  --fontStack-sansSerifDisplay: var(--px-font-body) !important;
+}
+html.px-on.px-body-font body,
+html.px-on.px-body-font button,
+html.px-on.px-body-font input,
+html.px-on.px-body-font select,
+html.px-on.px-body-font textarea,
+html.px-on.px-body-font .markdown-body,
+html.px-on.px-body-font .btn,
+html.px-on.px-body-font .Button {
+  font-family: var(--px-font-body) !important;
+  letter-spacing: 0.01em;
+}
+
+html.px-on.px-code-font code,
+html.px-on.px-code-font pre,
+html.px-on.px-code-font kbd,
+html.px-on.px-code-font samp,
+html.px-on.px-code-font tt,
+html.px-on.px-code-font .blob-code-inner,
+html.px-on.px-code-font .react-code-text,
+html.px-on.px-code-font #read-only-cursor-text-area {
+  font-family: var(--px-font-code), ui-monospace, SFMono-Regular, Menlo, monospace !important;
+}
+
+/* VT323 runs small; give it a bump so code stays readable */
+html.px-on.px-code-vt .markdown-body code,
+html.px-on.px-code-vt .markdown-body tt {
+  font-size: 100% !important;
+}
+html.px-on.px-code-vt .markdown-body pre,
+html.px-on.px-code-vt .markdown-body pre code {
+  font-size: 16px !important;
+  line-height: 1.35 !important;
+}
+html.px-on.px-code-vt .blob-code-inner,
+html.px-on.px-code-vt .react-code-text,
+html.px-on.px-code-vt .react-blob-print-hide,
+html.px-on.px-code-vt #read-only-cursor-text-area {
+  font-size: 15px !important;
+}
+
+/* Headings in the chunky arcade font */
+html.px-on .markdown-body h1,
+html.px-on .markdown-body h2,
+html.px-on .markdown-body h3,
+html.px-on .vcard-fullname,
+html.px-on .gh-header-title,
+html.px-on [data-testid="issue-title"],
+html.px-on #repo-title-component strong,
+html.px-on .Box-title,
+html.px-on .BorderGrid-cell > h2,
+html.px-on .js-pinned-items-reorder-container > h2,
+html.px-on .js-yearly-contributions h2,
+html.px-on .Subhead-heading,
+html.px-on .AppHeader-context-item-label {
+  font-family: var(--px-font-heading), var(--px-font-body) !important;
+  letter-spacing: 0.02em;
+  line-height: 1.5 !important;
+  font-weight: 400 !important;
+}
+html.px-on .markdown-body h1 { font-size: 1.45em !important; }
+html.px-on .markdown-body h2 { font-size: 1.15em !important; }
+html.px-on .markdown-body h3 { font-size: 0.95em !important; }
+html.px-on .vcard-fullname { font-size: 18px !important; line-height: 1.6 !important; }
+html.px-on .gh-header-title,
+html.px-on [data-testid="issue-title"] { font-size: 20px !important; }
+html.px-on #repo-title-component strong { font-size: 15px !important; }
+html.px-on .Box-title,
+html.px-on .BorderGrid-cell > h2,
+html.px-on .js-pinned-items-reorder-container > h2,
+html.px-on .js-yearly-contributions h2,
+html.px-on .AppHeader-context-item-label { font-size: 12px !important; }
+
+/* Markdown headings get a pixel underline instead of GitHub's hairline */
+html.px-on .markdown-body h1,
+html.px-on .markdown-body h2 {
+  border-bottom: 3px dashed var(--px-accent2) !important;
+  padding-bottom: 0.5em !important;
+}
+
+/* ---------- 5. Header (the HUD) ---------- */
+html.px-on .AppHeader,
+html.px-on .Header,
+html.px-on header.HeaderMktg {
+  background: var(--px-surface) !important;
+  border-bottom: 3px solid var(--px-border) !important;
+  box-shadow: 0 3px 0 0 var(--px-accent2) !important;
+  margin-bottom: 3px;
+}
+html.px-on .AppHeader .octicon-mark-github,
+html.px-on .Header .octicon-mark-github {
+  color: var(--px-accent) !important;
+  filter: drop-shadow(2px 2px 0 var(--px-border));
+}
+
+/* Logged-out marketing header is designed for white text; make it readable on light */
+html.px-on header a,
+html.px-on header a span,
+html.px-on header button:not([data-variant="primary"]):not(.Button--primary),
+html.px-on header button:not([data-variant="primary"]):not(.Button--primary) span {
+  color: var(--px-text) !important;
+}
+
+/* Nav tabs: thick pixel underline on the active tab */
+html.px-on .UnderlineNav-item.selected::after,
+html.px-on .UnderlineNav-item[aria-current]:not([aria-current="false"])::after,
+html.px-on [class*="UnderlineItem"][aria-current="page"]::after {
+  height: 4px !important;
+  background: var(--px-accent) !important;
+  box-shadow: 2px 2px 0 var(--px-border);
+}
+
+/* ---------- 6. Buttons ---------- */
+html.px-on .btn:not(.btn-octicon):not(.btn-link):not(.btn-invisible),
+html.px-on .Button:not(.Button--invisible):not(.Button--link),
+html.px-on [class*="prc-Button-ButtonBase"]:not([data-variant="invisible"]):not([data-variant="link"]) {
+  border: 2px solid var(--px-border) !important;
+  font-weight: 600;
+  transition: transform 60ms steps(1), box-shadow 60ms steps(1) !important;
+}
+html.px-on.px-fx-shadows .btn:not(.btn-octicon):not(.btn-link):not(.btn-invisible),
+html.px-on.px-fx-shadows .Button:not(.Button--invisible):not(.Button--link),
+html.px-on.px-fx-shadows [class*="prc-Button-ButtonBase"]:not([data-variant="invisible"]):not([data-variant="link"]) {
+  box-shadow: var(--px-hard-sm) !important;
+}
+/* Press = button sinks into its shadow, like an arcade button */
+html.px-on.px-fx-shadows .btn:not(.btn-octicon):not(.btn-link):not(:disabled):active,
+html.px-on.px-fx-shadows .Button:not(.Button--invisible):not(:disabled):active,
+html.px-on.px-fx-shadows [class*="prc-Button-ButtonBase"]:not([data-variant="invisible"]):not(:disabled):active {
+  transform: translate(2px, 2px);
+  box-shadow: none !important;
+}
+
+html.px-on .btn-primary,
+html.px-on .Button--primary,
+html.px-on [class*="prc-Button-ButtonBase"][data-variant="primary"] {
+  background-color: var(--px-accent) !important;
+  color: var(--px-on-accent) !important;
+  text-shadow: 1px 1px 0 color-mix(in srgb, var(--px-border) 45%, transparent);
+}
+html.px-on .btn-primary:hover,
+html.px-on .Button--primary:hover,
+html.px-on [class*="prc-Button-ButtonBase"][data-variant="primary"]:hover {
+  background-color: var(--px-accent-hover) !important;
+}
+html.px-on .btn-primary .octicon,
+html.px-on .Button--primary .octicon,
+html.px-on [data-variant="primary"] .octicon {
+  color: var(--px-on-accent) !important;
+}
+
+/* Focus ring: a dashed pixel outline */
+html.px-on :focus-visible {
+  outline: 2px dashed var(--px-accent) !important;
+  outline-offset: 2px !important;
+  box-shadow: none !important;
+}
+
+/* ---------- 7. Inputs ---------- */
+html.px-on .form-control,
+html.px-on .form-select,
+html.px-on .FormControl-input,
+html.px-on .FormControl-select,
+html.px-on .FormControl-textarea,
+html.px-on [class*="prc-TextInput-TextInputWrapper"],
+html.px-on .QueryBuilder-InputWrapper,
+html.px-on .AppHeader-search-whenNarrow,
+html.px-on .AppHeader-searchButton {
+  border: 2px solid var(--px-border) !important;
+  background-color: var(--px-bg) !important;
+}
+html.px-on input[type="checkbox"],
+html.px-on input[type="radio"] {
+  accent-color: var(--px-accent);
+}
+
+/* ---------- 8. Boxes, cards, menus ---------- */
+html.px-on .Box,
+html.px-on .Popover-message,
+html.px-on .SelectMenu-modal,
+html.px-on .dropdown-menu,
+html.px-on .Overlay,
+html.px-on .markdown-body pre,
+html.px-on .markdown-body .highlight pre,
+html.px-on .TimelineItem-body .timeline-comment,
+html.px-on .timeline-comment,
+html.px-on .flash {
+  border: 2px solid var(--px-border) !important;
+}
+html.px-on.px-fx-shadows .Box:not(.Box .Box),
+html.px-on.px-fx-shadows .Popover-message,
+html.px-on.px-fx-shadows .SelectMenu-modal,
+html.px-on.px-fx-shadows .dropdown-menu,
+html.px-on.px-fx-shadows .timeline-comment {
+  box-shadow: var(--px-hard) !important;
+}
+html.px-on .Box-header,
+html.px-on .timeline-comment-header {
+  background-color: var(--px-surface) !important;
+  border-bottom: 2px solid var(--px-border) !important;
+}
+html.px-on .markdown-body pre,
+html.px-on .markdown-body .highlight pre {
+  background-color: var(--px-surface) !important;
+}
+html.px-on .markdown-body :not(pre) > code {
+  background-color: var(--px-accent-soft) !important;
+  color: var(--px-accent-ink);
+  padding: 0.1em 0.35em !important;
+}
+html.px-on .markdown-body blockquote {
+  border-left: 4px solid var(--px-accent2) !important;
+  background: var(--px-accent-softer);
+  padding: 0.5em 1em !important;
+}
+html.px-on .markdown-body hr {
+  height: 4px !important;
+  background: repeating-linear-gradient(90deg, var(--px-accent2) 0 8px, transparent 8px 16px) !important;
+  border: 0 !important;
+}
+html.px-on .markdown-body table th {
+  background: var(--px-surface);
+}
+
+/* ---------- 9. Little bits: counters, labels, topics, keyboard keys ---------- */
+html.px-on .Counter,
+html.px-on [class*="prc-CounterLabel"] {
+  background-color: var(--px-accent-soft) !important;
+  color: var(--px-accent-ink) !important;
+  border: 1px solid var(--px-accent) !important;
+  font-weight: 700;
+}
+html.px-on .topic-tag,
+html.px-on a.topic-tag {
+  background-color: var(--px-accent-soft) !important;
+  color: var(--px-accent-ink) !important;
+  border: 2px solid var(--px-accent) !important;
+  font-weight: 600;
+}
+html.px-on .topic-tag:hover {
+  background-color: var(--px-accent) !important;
+  color: var(--px-on-accent) !important;
+}
+html.px-on .Label,
+html.px-on .IssueLabel {
+  border-width: 2px !important;
+  font-weight: 600 !important;
+}
+html.px-on kbd,
+html.px-on .markdown-body kbd {
+  border: 2px solid var(--px-border) !important;
+  box-shadow: 0 2px 0 var(--px-border) !important;
+  background: var(--px-bg) !important;
+}
+
+/* Language dots in repo lists become little pixel squares */
+html.px-on .repo-language-color {
+  box-shadow: 0 0 0 1px var(--px-border);
+}
+
+/* ---------- 10. Contribution graph: every square a pixel ---------- */
+html.px-on .ContributionCalendar-day {
+  outline-width: 1px !important;
+}
+html.px-on .ContributionCalendar-day[data-level="0"] { background-color: var(--contribution-default-bgColor-0) !important; }
+html.px-on .ContributionCalendar-day[data-level="1"] { background-color: var(--contribution-default-bgColor-1) !important; }
+html.px-on .ContributionCalendar-day[data-level="2"] { background-color: var(--contribution-default-bgColor-2) !important; }
+html.px-on .ContributionCalendar-day[data-level="3"] { background-color: var(--contribution-default-bgColor-3) !important; }
+html.px-on .ContributionCalendar-day[data-level="4"] { background-color: var(--contribution-default-bgColor-4) !important; }
+html.px-on .js-calendar-graph {
+  image-rendering: pixelated;
+}
+
+/* Progress bars look like HP bars */
+html.px-on .Progress {
+  height: 10px !important;
+  border: 2px solid var(--px-border) !important;
+  background: var(--px-bg) !important;
+}
+html.px-on .Progress-item.color-bg-success-emphasis,
+html.px-on .Progress-item.bg-green {
+  background-color: var(--px-accent) !important;
+}
+html.px-on .Progress-item {
+  background-image: repeating-linear-gradient(90deg, transparent 0 6px, color-mix(in srgb, var(--px-bg) 35%, transparent) 6px 8px);
+}
+
+/* ---------- 11. Avatars ---------- */
+html.px-on .avatar,
+html.px-on .avatar-user {
+  box-shadow: 0 0 0 2px var(--px-border) !important;
+}
+html.px-on.px-fx-shadows img.avatar-user.width-full {
+  box-shadow: 0 0 0 3px var(--px-border), 6px 6px 0 3px var(--px-shadow) !important;
+}
+html.px-on img[data-px-avatar] {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* ---------- 12. Pixel cursor ---------- */
+html.px-on.px-fx-cursor body {
+  cursor: var(--px-cursor, auto);
+}
+html.px-on.px-fx-cursor a,
+html.px-on.px-fx-cursor button,
+html.px-on.px-fx-cursor summary,
+html.px-on.px-fx-cursor label[for],
+html.px-on.px-fx-cursor [role="button"],
+html.px-on.px-fx-cursor [role="tab"],
+html.px-on.px-fx-cursor [role="menuitem"],
+html.px-on.px-fx-cursor [role="option"],
+html.px-on.px-fx-cursor .btn,
+html.px-on.px-fx-cursor .ContributionCalendar-day {
+  cursor: var(--px-cursor-hand, pointer) !important;
+}
+
+/* ---------- 13. Scrollbars ---------- */
+html.px-on {
+  scrollbar-color: var(--px-accent) var(--px-surface);
+}
+html.px-on ::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+  background: var(--px-surface);
+}
+html.px-on ::-webkit-scrollbar-thumb {
+  background: var(--px-accent);
+  border: 3px solid var(--px-surface);
+  box-shadow: inset 0 0 0 2px var(--px-border);
+}
+html.px-on ::-webkit-scrollbar-thumb:hover {
+  background: var(--px-accent-hover);
+}
+
+/* ---------- 14. Footer sign-off ---------- */
+html.px-on .footer .octicon-mark-github {
+  color: var(--px-accent) !important;
+}
