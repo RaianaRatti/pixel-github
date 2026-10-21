@@ -7,7 +7,7 @@
 
   // Turn on with defaults right away so there's no flash of GitHub's normal look.
   T.apply(html, current);
-  forceLight(current.enabled);
+  forceMode(current.enabled);
 
   chrome.storage.local.get(T.STORAGE_KEY, function (data) {
     update(data[T.STORAGE_KEY]);
@@ -17,26 +17,26 @@
     if (area === "local" && changes[T.STORAGE_KEY]) update(changes[T.STORAGE_KEY].newValue);
   });
 
-  // GitHub can rewrite these attributes (e.g. when it detects your OS theme), so keep it light.
+  // GitHub can rewrite these attributes (e.g. when it detects your OS theme), so keep our mode.
   new MutationObserver(function () {
-    if (current.enabled) forceLight(true);
+    if (current.enabled) forceMode(true);
   }).observe(html, { attributes: true, attributeFilter: ["data-color-mode", "data-light-theme", "data-dark-theme"] });
 
   function update(saved) {
     current = T.apply(html, saved);
-    forceLight(current.enabled);
+    forceMode(current.enabled);
   }
 
-  function forceLight(on) {
+  function forceMode(on) {
     var attrs = ["data-color-mode", "data-light-theme", "data-dark-theme"];
     if (on) {
       if (!original) {
         original = {};
         attrs.forEach(function (a) { original[a] = html.getAttribute(a); });
       }
-      setIfDifferent("data-color-mode", "light");
+      setIfDifferent("data-color-mode", current.mode);
       setIfDifferent("data-light-theme", "light");
-      setIfDifferent("data-dark-theme", "light");
+      setIfDifferent("data-dark-theme", "dark");
     } else if (original) {
       attrs.forEach(function (a) {
         if (original[a] === null) html.removeAttribute(a);

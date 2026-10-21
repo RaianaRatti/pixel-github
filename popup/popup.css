@@ -21,6 +21,7 @@
   --muted: color-mix(in srgb, var(--px-text) 64%, var(--px-bg));
   color-scheme: light;
 }
+.px-dark { color-scheme: dark; }
 
 * { box-sizing: border-box; border-radius: 0; }
 
@@ -130,6 +131,20 @@ h2 {
 }
 .preset .strip { display: flex; height: 16px; border: 2px solid var(--px-border); }
 .preset .strip span { flex: 1; }
+
+.section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.section-head h2 { margin: 0; }
+.mode { display: flex; border: 2px solid var(--px-border); box-shadow: 2px 2px 0 var(--px-border); }
+.mode button {
+  padding: 3px 8px;
+  border: 0;
+  background: var(--px-bg);
+  color: var(--px-text);
+  font: 13px var(--px-font-body);
+  cursor: pointer;
+}
+.mode button + button { border-left: 2px solid var(--px-border); }
+.mode button[aria-pressed="true"] { background: var(--px-accent); color: var(--px-on-accent, #fff); }
 
 /* ---------- Colors ---------- */
 .colors { display: grid; gap: 6px; }

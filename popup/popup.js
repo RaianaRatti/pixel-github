@@ -23,14 +23,14 @@
       strip.className = "strip";
       ["bg", "accent2", "accent", "border"].forEach(function (k) {
         var s = document.createElement("span");
-        s.style.background = p.colors[k];
+        s.dataset.key = k;
         strip.appendChild(s);
       });
       btn.appendChild(strip);
       btn.appendChild(document.createTextNode(p.name));
       btn.addEventListener("click", function () {
         settings.preset = id;
-        settings.colors = Object.assign({}, p.colors);
+        settings.colors = T.paletteFor(id, null, settings.mode);
         save();
       });
       $("presets").appendChild(btn);
@@ -65,6 +65,15 @@
       box.addEventListener("change", function () { settings.effects[box.dataset.effect] = box.checked; save(); });
     });
 
+    document.querySelectorAll("[data-mode]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (settings.mode === b.dataset.mode) return;
+        settings.mode = b.dataset.mode;
+        settings.colors = T.paletteFor(settings.preset, settings.colors, settings.mode);
+        save();
+      });
+    });
+
     $("enabled").addEventListener("change", function () { settings.enabled = this.checked; save(); });
 
     $("reset").addEventListener("click", function () {
@@ -89,16 +98,21 @@
   // If hand-picked colors happen to equal a preset, light that preset up again.
   function matchingPreset(colors) {
     return Object.keys(T.PRESETS).find(function (id) {
-      var p = T.PRESETS[id].colors;
+      var p = T.PRESETS[id][settings.mode];
       return Object.keys(p).every(function (k) { return p[k].toLowerCase() === String(colors[k]).toLowerCase(); });
     }) || "custom";
   }
 
   function render(skipField) {
     T.apply(document.documentElement, settings);
+    document.querySelectorAll("[data-mode]").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.mode === settings.mode));
+    });
 
     document.querySelectorAll(".preset").forEach(function (b) {
       b.setAttribute("aria-pressed", String(b.dataset.preset === settings.preset));
+      var colors = T.PRESETS[b.dataset.preset][settings.mode];
+      b.querySelectorAll(".strip span").forEach(function (sw) { sw.style.background = colors[sw.dataset.key]; });
     });
     T.COLOR_KEYS.forEach(function (c) {
       var v = settings.colors[c.key];

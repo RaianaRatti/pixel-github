@@ -1,7 +1,14 @@
-# Pixel Pink for GitHub
+# pixel-github
 
 A pixelated, video-game light theme for github.com: white and pink, square corners, chunky hard shadows,
 arcade fonts, a pink contribution graph and a pixel cursor. Every color can be changed from the popup.
+
+## Demo
+
+# Handheld Theme - Home Page
+![alt text](images/home-page.png)
+# Bubblegum Theme - Repository Page
+![alt text](images/repository-page.png)
 
 ## Install
 
@@ -16,7 +23,7 @@ arcade fonts, a pink contribution graph and a pixel cursor. Every color can be c
 Build the `.xpi` (output goes to `dist/`):
 
 ```sh
-npx web-ext build --ignore-files dist README.md --overwrite-dest -a dist -n pixel-pink-{version}.xpi
+npx web-ext build --ignore-files dist README.md --overwrite-dest -a dist -n pixel-github-{version}.xpi
 ```
 
 Regular Firefox only keeps add-ons that Mozilla has signed. Pick one of these:
@@ -29,7 +36,7 @@ Regular Firefox only keeps add-ons that Mozilla has signed. Pick one of these:
   "Unlisted" means Mozilla signs it but it is **not** published on the add-ons store. The signed `.xpi` lands in
   `web-ext-artifacts/`. Drag it onto a Firefox window to install.
 - **Firefox Developer Edition / Nightly (permanent, no signing).** Set `xpinstall.signatures.required` to `false`
-  in `about:config`, then drag `dist/pixel-pink-{version}.xpi` onto the window.
+  in `about:config`, then drag `dist/pixel-github-{version}.xpi` onto the window.
 - **Quick try (until restart).** `about:debugging#/runtime/this-firefox` → **Load Temporary Add-on…** → pick the `.xpi`.
 
 Bump `version` in `manifest.json` before signing again, because Mozilla won't sign the same version twice.
@@ -39,6 +46,8 @@ Bump `version` in `manifest.json` before signing again, because Mozilla won't si
 Click the pixel Octocat icon:
 
 - **Pick a palette**: Bubblegum, Sakura, Cherry, Peach Soda, Lemon Drop, Handheld, Mint Chip, Sky Castle, Blueberry, Lavender, Cotton Candy, Arcade Mono
+- **Light / Dark**: every palette has a dark version. Flip the switch and the current palette swaps to it
+  (your own custom colors get an automatic dark or light version).
 - **Colors**: 7 colors (background, surface, text, accent, accent 2, border, shadow). Use the picker or type a hex.
   Every other shade (hover, soft tints, graph levels, syntax colors) is mixed from these.
 - **Fonts**: Pixelify Sans / Silkscreen / Press Start 2P / VT323, or GitHub's normal fonts

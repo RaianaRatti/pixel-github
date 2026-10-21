@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Pixel Pink — a pixelated, video-game light theme for GitHub.
+   pixel-github — a pixelated, video-game light theme for GitHub.
    Everything hangs off a handful of --px-* variables that the popup controls.
    All rules are scoped to html.px-on so turning the theme off is instant.
    ========================================================================== */
@@ -18,8 +18,11 @@
   --px-font-code: 'PX VT323', monospace;
 }
 
+/* Light or dark, following the switch in the popup */
+html.px-on { color-scheme: light !important; }
+html.px-on.px-dark { color-scheme: dark !important; }
+
 html.px-on {
-  color-scheme: light !important;
 
   /* Shades derived from the palette, so 7 colors are all you ever have to pick. */
   --px-accent-ink: color-mix(in srgb, var(--px-accent) 72%, var(--px-text));
@@ -120,17 +123,6 @@ html.px-on [data-dark-theme] {
   /* Selection */
   --selection-bgColor: var(--px-accent2-soft) !important;
 
-  /* Square everything */
-  --borderRadius-small: 0 !important;
-  --borderRadius-medium: 0 !important;
-  --borderRadius-default: 0 !important;
-  --borderRadius-large: 0 !important;
-  --borderRadius-full: 0 !important;
-  --borderWidth-thick: 2px !important;
-
-  /* Fonts (GitHub reads these everywhere) */
-  --fontStack-monospace: var(--px-font-code), ui-monospace, SFMono-Regular, Menlo, monospace !important;
-
   /* Syntax highlighting */
   --color-prettylights-syntax-comment: var(--px-muted) !important;
   --color-prettylights-syntax-constant: var(--px-accent-ink) !important;
@@ -179,6 +171,18 @@ html.px-on [data-dark-theme] {
   --color-calendar-graph-day-L2-bg: var(--px-accent2) !important;
   --color-calendar-graph-day-L3-bg: var(--px-accent) !important;
   --color-calendar-graph-day-L4-bg: var(--px-accent-ink) !important;
+}
+
+/* Square corners + pixel code font, in both color modes */
+html.px-on,
+html.px-on [data-color-mode] {
+  --borderRadius-small: 0 !important;
+  --borderRadius-medium: 0 !important;
+  --borderRadius-default: 0 !important;
+  --borderRadius-large: 0 !important;
+  --borderRadius-full: 0 !important;
+  --borderWidth-thick: 2px !important;
+  --fontStack-monospace: var(--px-font-code), ui-monospace, SFMono-Regular, Menlo, monospace !important;
 }
 
 /* Floating things get hard pixel shadows instead of soft blurry ones */

@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Pixel Pink</title>
+  <title>pixel-github</title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
   <header class="hud">
     <div class="logo">
       <img class="mark" src="../icons/icon48.png" width="48" height="48" alt="">
-      <h1>PIXEL<br>PINK</h1>
+      <h1>pixel-<br>github</h1>
     </div>
     <label class="power" title="Turn the theme on or off">
       <input type="checkbox" id="enabled">
@@ -20,7 +20,13 @@
 
   <main id="controls">
     <section>
-      <h2>&#9656; Pick a palette</h2>
+      <div class="section-head">
+        <h2>&#9656; Pick a palette</h2>
+        <div class="mode" role="group" aria-label="Light or dark">
+          <button type="button" data-mode="light" aria-pressed="true">&#9728; Light</button>
+          <button type="button" data-mode="dark" aria-pressed="false">&#9790; Dark</button>
+        </div>
+      </div>
       <div class="presets" id="presets"></div>
     </section>
 
