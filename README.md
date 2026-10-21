@@ -5,9 +5,9 @@ arcade fonts, a pink contribution graph and a pixel cursor. Every color can be c
 
 ## Demo
 
-# Handheld Theme - Home Page
+### Handheld Theme - Home Page
 ![alt text](images/home-page.png)
-# Bubblegum Theme - Repository Page
+### Bubblegum Theme - Repository Page
 ![alt text](images/repository-page.png)
 
 ## Install
